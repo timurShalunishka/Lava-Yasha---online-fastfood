@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Lava Yasha - Online food</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>Lava Yasha - Замовлення їжі онлайн</header>
+
+<button id="toggleCartBtn">Показати кошик</button>
+
+<div id="cart" class="hidden">
+    <h2>Кошик</h2>
+    <div id="cartItems"></div>
+    <p class="total">Разом: <span id="totalPrice">0</span> грн</p>
+</div>
+
+<div class="menu">
+
+    <div class="item">
+        <img src="https://gram.in.ua/wp-content/uploads/2021/11/burger.jpg" alt="Burger">
+        <h3>Бургер Класичний</h3>
+        <p>85 грн</p>
+        <button onclick="addToCart('Бургер Класичний', 85)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://ecopizza.com.ua/555-large_default/pica-peperoni.jpg" alt="Pizza">
+        <h3>Піца Пепероні</h3>
+        <p>150 грн</p>
+        <button onclick="addToCart('Піца Пепероні', 150)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://retail.luxor-ukraine.com.ua/wp-content/uploads/2021/10/2361541520_w600_h600_2361541520.jpg" alt="Fries">
+        <h3>Картопля Фрі</h3>
+        <p>55 грн</p>
+        <button onclick="addToCart('Картопля Фрі', 55)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVt0BEvsQX2greVW2iQgbEY26qVB7ZQTgXTg&s" alt="Hotdog">
+        <h3>Хот-дог</h3>
+        <p>60 грн</p>
+        <button onclick="addToCart('Хот-дог', 60)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_3INpQUOfyPnReMi28DoQcEUOFwnN29hEgA&s" alt="Nuggets">
+        <h3>Нагетси (6 шт)</h3>
+        <p>70 грн</p>
+        <button onclick="addToCart('Нагетси (6 шт)', 70)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTR3wtqc83Xb1L0uRy6OPge_2nBZjT8BrxOQ&s" alt="Cola">
+        <h3>Кока-Кола</h3>
+        <p>30 грн</p>
+        <button onclick="addToCart('Кока-Кола', 30)">Додати</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
