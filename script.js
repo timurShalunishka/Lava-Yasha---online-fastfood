@@ -75,3 +75,5 @@ document.getElementById("toggleCartBtn").addEventListener("click", () => {
         toggleCartBtn.textContent = "Показати кошик";
     }
 });
+
+if button"order" press = alert("1488")
