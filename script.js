@@ -76,4 +76,5 @@ document.getElementById("toggleCartBtn").addEventListener("click", () => {
     }
 });
 
-if button"order" press = alert("1488")
+if (button"order" press = alert("1488"))
+
