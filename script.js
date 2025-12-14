@@ -67,11 +67,11 @@ function changeQty(name, change) {
 document.getElementById("toggleCartBtn").addEventListener("click", () => {
     const cart = document.getElementById("cart");
 
-    if (cart.classList.contains("hidden")) {
+    if (cart,order.classList.contains("hidden")) {
         cart.classList.remove("hidden");
         toggleCartBtn.textContent = "Сховати кошик";
     } else {
-        cart.classList.add("hidden");
+        cart,order.classList.add("hidden");
         toggleCartBtn.textContent = "Показати кошик";
     }
 });
