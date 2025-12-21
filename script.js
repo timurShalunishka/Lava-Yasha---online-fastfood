@@ -74,4 +74,5 @@ document.getElementById("toggleCartBtn").addEventListener("click", () => {
         cart,order.classList.add("hidden");
         toggleCartBtn.textContent = "Показати кошик";
     }
-});
+};
+
