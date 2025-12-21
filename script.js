@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 let cart = [];
 let total = 0;
 
@@ -44,7 +46,6 @@ function changeQty(name, change) {
     if (change === -1) {
         item.qty--;
         total -= item.price;
-
         if (item.qty <= 0) {
             cart = cart.filter(i => i.name !== name);
         }
@@ -58,7 +59,7 @@ function changeQty(name, change) {
     updateCart();
 }
 
-/* --- КНОПКА КОШИКА --- */
+/* КОШИК */
 const toggleCartBtn = document.getElementById("toggleCartBtn");
 const cartBlock = document.getElementById("cart");
 
@@ -69,24 +70,19 @@ toggleCartBtn.addEventListener("click", () => {
         : "Сховати кошик";
 });
 
-/* --- КНОПКА ЗАМОВИТИ --- */
+/* ЗАМОВИТИ */
 document.querySelector(".order").addEventListener("click", () => {
     if (cart.length === 0) {
         alert("Кошик порожній!");
         return;
     }
 
-    let orderText = "Ваше замовлення:\n\n";
-    cart.forEach(item => {
-        orderText += `${item.name} x${item.qty} = ${item.price * item.qty} грн\n`;
-    });
+    alert("Замовлення прийнято! Сума: " + total + " грн");
 
-    orderText += `\nРазом: ${total} грн`;
-
-    alert(orderText);
-
-    // очищення кошика
     cart = [];
     total = 0;
     updateCart();
 });
+
+});
+
