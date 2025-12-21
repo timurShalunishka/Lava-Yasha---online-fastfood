@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", (order) => {
+   function addToCart() {}
+});
 
 let cart = [];
 let total = 0;
@@ -85,4 +87,5 @@ document.querySelector(".order").addEventListener("click", () => {
 });
 
 });
+
 
