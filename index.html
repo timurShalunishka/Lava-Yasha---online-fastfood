@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<title>Lava Yasha — Online food</title>
+<title>Lava Yasha - Online food</title>
 
 <style>
 body {
@@ -40,7 +40,7 @@ header {
     border: 2px solid #ff7a00;
     border-radius: 10px;
     padding: 20px;
-    width: 320px;
+    width: 300px;
     z-index: 9999;
 }
 
@@ -84,30 +84,12 @@ button {
 .cart-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.qty-controls {
-    display: flex;
-    gap: 5px;
-}
-
-.qty-controls button {
-    padding: 4px 8px;
-    font-size: 14px;
+    margin-bottom: 8px;
 }
 
 .order {
     width: 100%;
     margin-top: 10px;
-}
-
-.order-form input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 6px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
 }
 </style>
 </head>
@@ -121,56 +103,50 @@ button {
 <div id="cart" class="hidden">
     <h2>Кошик</h2>
     <div id="cartItems"></div>
-
     <p><b>Разом:</b> <span id="totalPrice">0</span> грн</p>
-
-    <div class="order-form">
-        <input id="customerName" placeholder="Ваше імʼя">
-        <input id="customerPhone" placeholder="Телефон">
-    </div>
-
     <button class="order">Замовити</button>
 </div>
 
+<!-- 🔥 СТАРІ КАРТКИ — БЕЗ ЗМІН -->
 <div class="menu">
 
     <div class="item">
-        <img src="https://gram.in.ua/wp-content/uploads/2021/11/burger.jpg">
+        <img src="https://gram.in.ua/wp-content/uploads/2021/11/burger.jpg" alt="Burger">
         <h3>Бургер Класичний</h3>
         <p>85 грн</p>
         <button onclick="addToCart('Бургер Класичний', 85)">Додати</button>
     </div>
 
     <div class="item">
-        <img src="https://ecopizza.com.ua/555-large_default/pica-peperoni.jpg">
+        <img src="https://ecopizza.com.ua/555-large_default/pica-peperoni.jpg" alt="Pizza">
         <h3>Піца Пепероні</h3>
         <p>150 грн</p>
         <button onclick="addToCart('Піца Пепероні', 150)">Додати</button>
     </div>
 
     <div class="item">
-        <img src="https://retail.luxor-ukraine.com.ua/wp-content/uploads/2021/10/2361541520_w600_h600_2361541520.jpg">
+        <img src="https://retail.luxor-ukraine.com.ua/wp-content/uploads/2021/10/2361541520_w600_h600_2361541520.jpg" alt="Fries">
         <h3>Картопля Фрі</h3>
         <p>55 грн</p>
         <button onclick="addToCart('Картопля Фрі', 55)">Додати</button>
     </div>
 
     <div class="item">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVt0BEvsQX2greVW2iQgbEY26qVB7ZQTgXTg&s">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVt0BEvsQX2greVW2iQgbEY26qVB7ZQTgXTg&s" alt="Hotdog">
         <h3>Хот-дог</h3>
         <p>60 грн</p>
         <button onclick="addToCart('Хот-дог', 60)">Додати</button>
     </div>
 
     <div class="item">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_3INpQUOfyPnReMi28DoQcEUOFwnN29hEgA&s">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_3INpQUOfyPnReMi28DoQcEUOFwnN29hEgA&s" alt="Nuggets">
         <h3>Нагетси (6 шт)</h3>
         <p>70 грн</p>
         <button onclick="addToCart('Нагетси (6 шт)', 70)">Додати</button>
     </div>
 
     <div class="item">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTR3wtqc83Xb1L0uRy6OPge_2nBZjT8BrxOQ&s">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTR3wtqc83Xb1L0uRy6OPge_2nBZjT8BrxOQ&s" alt="Cola">
         <h3>Кока-Кола</h3>
         <p>30 грн</p>
         <button onclick="addToCart('Кока-Кола', 30)">Додати</button>
@@ -185,9 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let total = 0;
 
     window.addToCart = function(name, price) {
-        let item = cart.find(i => i.name === name);
+        const item = cart.find(i => i.name === name);
         if (item) item.qty++;
         else cart.push({ name, price, qty: 1 });
+
         total += price;
         updateCart();
     };
@@ -214,31 +191,20 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     document.querySelector(".order").onclick = () => {
-        const name = customerName.value.trim();
-        const phone = customerPhone.value.trim();
+        if (cart.length === 0) {
+            alert("Кошик порожній!");
+            return;
+        }
 
-        if (cart.length === 0) return alert("Кошик порожній!");
-        if (!name || !phone) return alert("Введіть імʼя та телефон!");
-
-        alert(
-            "Замовлення прийнято!\n" +
-            "Імʼя: " + name + "\n" +
-            "Телефон: " + phone + "\n" +
-            "Сума: " + total + " грн"
-        );
+        alert("Замовлення прийнято! Сума: " + total + " грн");
 
         cart = [];
         total = 0;
         updateCart();
-        customerName.value = "";
-        customerPhone.value = "";
     };
 
 });
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
