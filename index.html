@@ -21,6 +21,11 @@ header {
     font-weight: bold;
 }
 
+.cart-btn-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
 #toggleCartBtn {
     margin: 20px;
     padding: 10px 20px;
@@ -30,24 +35,23 @@ header {
     border-radius: 8px;
     cursor: pointer;
     font-size: 18px;
-    position: relative;
 }
 
-/* 🔴 КУЛЯ З ОКЛИКОМ */
-.cart-alert {
+/* 🔴 КУЛЯ З ОКЛИКУ */
+#cartBadge {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: 10px;
+    right: 10px;
     background: red;
     color: white;
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    font-weight: bold;
     font-size: 14px;
     display: none;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
 }
 
 #cart {
@@ -108,12 +112,9 @@ button {
 
 .remove-btn {
     background: red;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
+    padding: 4px 8px;
     font-size: 14px;
-    padding: 0;
-    margin-left: 6px;
+    border-radius: 6px;
 }
 
 .order {
@@ -127,10 +128,10 @@ button {
 
 <header>Lava Yasha — Замовлення їжі онлайн</header>
 
-<button id="toggleCartBtn">
-    Показати кошик
-    <span class="cart-alert" id="cartAlert">!</span>
-</button>
+<div class="cart-btn-wrapper">
+    <button id="toggleCartBtn">Кошик</button>
+    <div id="cartBadge">!</div>
+</div>
 
 <div id="cart" class="hidden">
     <h2>Кошик</h2>
@@ -140,7 +141,7 @@ button {
 </div>
 
 <div class="menu">
-    <!-- СТАРІ КАРТКИ БЕЗ ЗМІН -->
+
     <div class="item">
         <img src="https://gram.in.ua/wp-content/uploads/2021/11/burger.jpg">
         <h3>Бургер Класичний</h3>
@@ -162,93 +163,72 @@ button {
         <button onclick="addToCart('Картопля Фрі', 55)">Додати</button>
     </div>
 
-    <div class="item">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVt0BEvsQX2greVW2iQgbEY26qVB7ZQTgXTg&s">
-        <h3>Хот-дог</h3>
-        <p>60 грн</p>
-        <button onclick="addToCart('Хот-дог', 60)">Додати</button>
-    </div>
-
-    <div class="item">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_3INpQUOfyPnReMi28DoQcEUOFwnN29hEgA&s">
-        <h3>Нагетси (6 шт)</h3>
-        <p>70 грн</p>
-        <button onclick="addToCart('Нагетси (6 шт)', 70)">Додати</button>
-    </div>
-
-    <div class="item">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTR3wtqc83Xb1L0uRy6OPge_2nBZjT8BrxOQ&s">
-        <h3>Кока-Кола</h3>
-        <p>30 грн</p>
-        <button onclick="addToCart('Кока-Кола', 30)">Додати</button>
-    </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+let cart = [];
+let total = 0;
 
-    let cart = [];
-    let total = 0;
+function addToCart(name, price) {
+    const item = cart.find(i => i.name === name);
+    if (item) item.qty++;
+    else cart.push({ name, price, qty: 1 });
 
-    const alertBadge = document.getElementById("cartAlert");
+    total += price;
+    updateCart();
+}
 
-    window.addToCart = function(name, price) {
-        const item = cart.find(i => i.name === name);
-        if (item) item.qty++;
-        else cart.push({ name, price, qty: 1 });
+function removeItem(name) {
+    const item = cart.find(i => i.name === name);
+    if (!item) return;
 
-        total += price;
-        updateCart();
-    };
+    item.qty--;
+    total -= item.price;
 
-    window.removeItem = function(name) {
-        const item = cart.find(i => i.name === name);
-        if (!item) return;
-
-        total -= item.price * item.qty;
+    if (item.qty <= 0) {
         cart = cart.filter(i => i.name !== name);
-        updateCart();
-    };
-
-    function updateCart() {
-        const cartItems = document.getElementById("cartItems");
-        cartItems.innerHTML = "";
-
-        cart.forEach(item => {
-            const div = document.createElement("div");
-            div.className = "cart-item";
-            div.innerHTML = `
-                <span>${item.name} x${item.qty}</span>
-                <div>
-                    <span>${item.price * item.qty} грн</span>
-                    <button class="remove-btn" onclick="removeItem('${item.name}')">✕</button>
-                </div>
-            `;
-            cartItems.appendChild(div);
-        });
-
-        document.getElementById("totalPrice").textContent = total;
-        alertBadge.style.display = cart.length > 0 ? "flex" : "none";
     }
 
-    document.getElementById("toggleCartBtn").onclick = () => {
-        document.getElementById("cart").classList.toggle("hidden");
-    };
+    updateCart();
+}
 
-    document.querySelector(".order").onclick = () => {
-        if (cart.length === 0) {
-            alert("Кошик порожній!");
-            return;
-        }
+function updateCart() {
+    const cartItems = document.getElementById("cartItems");
+    cartItems.innerHTML = "";
 
-        alert("Замовлення прийнято! Сума: " + total + " грн");
+    cart.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+            <span>${item.name} x${item.qty}</span>
+            <div>
+                <button class="remove-btn" onclick="removeItem('${item.name}')">−</button>
+            </div>
+        `;
+        cartItems.appendChild(div);
+    });
 
-        cart = [];
-        total = 0;
-        updateCart();
-    };
+    document.getElementById("totalPrice").textContent = total;
 
-});
+    document.getElementById("cartBadge").style.display =
+        cart.length > 0 ? "flex" : "none";
+}
+
+document.getElementById("toggleCartBtn").onclick = () => {
+    document.getElementById("cart").classList.toggle("hidden");
+};
+
+document.querySelector(".order").onclick = () => {
+    if (cart.length === 0) {
+        alert("Кошик порожній!");
+        return;
+    }
+
+    alert("Замовлення прийнято! Сума: " + total + " грн");
+    cart = [];
+    total = 0;
+    updateCart();
+};
 </script>
 
 </body>
