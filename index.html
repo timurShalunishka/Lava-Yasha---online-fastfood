@@ -37,7 +37,6 @@ header {
     font-size: 18px;
 }
 
-/* 🔴 КУЛЯ З ОКЛИКУ */
 #cartBadge {
     position: absolute;
     top: 10px;
@@ -142,6 +141,7 @@ button {
 
 <div class="menu">
 
+    <!-- ОСНОВНІ -->
     <div class="item">
         <img src="https://gram.in.ua/wp-content/uploads/2021/11/burger.jpg">
         <h3>Бургер Класичний</h3>
@@ -161,6 +161,49 @@ button {
         <h3>Картопля Фрі</h3>
         <p>55 грн</p>
         <button onclick="addToCart('Картопля Фрі', 55)">Додати</button>
+    </div>
+
+    <!-- НОВІ -->
+    <div class="item">
+        <img src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hot-dog-1233023_1280.jpg">
+        <h3>Хот-дог</h3>
+        <p>60 грн</p>
+        <button onclick="addToCart('Хот-дог', 60)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/pizza-2291901_1280.jpg">
+        <h3>Піца Маргарита</h3>
+        <p>130 грн</p>
+        <button onclick="addToCart('Піца Маргарита', 130)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://cdn.pixabay.com/photo/2016/11/18/15/07/fried-chicken-1834275_1280.jpg">
+        <h3>Курячі нагетси</h3>
+        <p>75 грн</p>
+        <button onclick="addToCart('Курячі нагетси', 75)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://cdn.pixabay.com/photo/2017/06/02/18/24/salad-2367029_1280.jpg">
+        <h3>Салат Цезар</h3>
+        <p>95 грн</p>
+        <button onclick="addToCart('Салат Цезар', 95)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://cdn.pixabay.com/photo/2015/03/26/09/54/sushi-690888_1280.jpg">
+        <h3>Суші сет</h3>
+        <p>220 грн</p>
+        <button onclick="addToCart('Суші сет', 220)">Додати</button>
+    </div>
+
+    <div class="item">
+        <img src="https://cdn.pixabay.com/photo/2016/03/05/19/02/coca-cola-1233026_1280.jpg">
+        <h3>Кока-кола 0.5л</h3>
+        <p>30 грн</p>
+        <button onclick="addToCart('Кока-кола 0.5л', 30)">Додати</button>
     </div>
 
 </div>
@@ -201,15 +244,12 @@ function updateCart() {
         div.className = "cart-item";
         div.innerHTML = `
             <span>${item.name} x${item.qty}</span>
-            <div>
-                <button class="remove-btn" onclick="removeItem('${item.name}')">−</button>
-            </div>
+            <button class="remove-btn" onclick="removeItem('${item.name}')">−</button>
         `;
         cartItems.appendChild(div);
     });
 
     document.getElementById("totalPrice").textContent = total;
-
     document.getElementById("cartBadge").style.display =
         cart.length > 0 ? "flex" : "none";
 }
@@ -223,7 +263,6 @@ document.querySelector(".order").onclick = () => {
         alert("Кошик порожній!");
         return;
     }
-
     alert("Замовлення прийнято! Сума: " + total + " грн");
     cart = [];
     total = 0;
@@ -233,3 +272,5 @@ document.querySelector(".order").onclick = () => {
 
 </body>
 </html>
+
+
